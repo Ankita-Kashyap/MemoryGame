@@ -15,6 +15,7 @@ function flipCard()
         //first time player clicked card
         hasflippedCard=true;
         firstCard = this;
+
        // console.log(hasflippedCard,firstCard);    
     }
     else{
@@ -23,28 +24,33 @@ function flipCard()
         secondCard = this;
 
         // console.log(firstCard,secondCard);
-        // console.log(firstCard.dataset.framework); console.log(secondCard.dataset.framework); Displays names
-        //check if those cards match
-       if(firstCard.dataset.framework === secondCard.dataset.framework)
-       {
-           //its a match
-           firstCard.removeEventListener('click',flipCard);
-           secondCard.removeEventListener('click',flipCard);
-           //console.log("Function was executed!");
-        }
-        else{
-            //not a match
-            setTimeout(() =>{
-            firstCard.classList.remove('flip');
-            secondCard.classList.remove('flip');
-            },1000);
-        }
-
+       checkForMatch();
       
+        }
 
-       
-    }
 
+        function checkForMatch()
+        {    // console.log(firstCard.dataset.framework); console.log(secondCard.dataset.framework); Displays names
+            //check if those cards match
+            let isMatch = firstCard.dataset.framework === secondCard.dataset.framework;
+            isMatch? disableCards() : unflipCards();
+           
+        }
+        function disableCards()
+        {
+            //its a match
+            firstCard.removeEventListener('click',flipCard);
+            secondCard.removeEventListener('click',flipCard);
+        }
+
+        function unflipCards()
+        {
+             //not a match
+             setTimeout(() =>{
+                firstCard.classList.remove('flip');
+                secondCard.classList.remove('flip');
+                },1000);
+        }
 
 }
 
