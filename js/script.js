@@ -2,10 +2,12 @@
 const cards = document.querySelectorAll('.memory-card');
 
 let hasflippedCard = false;
+let lockBoard = false;    // to lock the board : so that the cards first unflip then the user takes another try
  let firstCard,secondCard;
 
 function flipCard()
 {
+    if(lockBoard) return; 
     //in this context this keyword refers to the element that fired the event
    // console.log('I was clicked!');
    // console.log(this); 
@@ -45,10 +47,12 @@ function flipCard()
 
         function unflipCards()
         {
+            lockBoard = true;
              //not a match
              setTimeout(() =>{
                 firstCard.classList.remove('flip');
                 secondCard.classList.remove('flip');
+                lockBoard = false;
                 },1000);
         }
 
